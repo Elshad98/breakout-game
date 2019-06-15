@@ -1,3 +1,3 @@
 const div = document.createElement('div');
-div.textContent = 'fd';
+div.textContent = 'Hello';
 document.body.appendChild(div);
