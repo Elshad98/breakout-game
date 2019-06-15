@@ -1,7 +1,7 @@
 # Breakout
 
-Simple mobile game Breakout created using JavaScript and Phaser framework. 
-The main purpose of this application is to learn Phaser.js.  
+Simple mobile game Breakout created using JavaScript and Phaser framework.   
+The main purpose of this application is to learn Phaser.js.    
 Check the demo:        
 
 ## Instructions
