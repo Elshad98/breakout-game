@@ -90,17 +90,9 @@ module.exports = {
             title: 'My App',
             filename: 'index.html',
             template: __dirname + "/public/index.html",
-            hash: true,
+            favicon: __dirname + "/public/favicon.ico",
             // minify: { collapseWhitespace: true },
-            chunks: ['app', 'common'],
             inject: 'body'
-        }),
-        new webpack.LoaderOptionsPlugin({
-            options: {
-                postcss: [
-                    autoprefixer()
-                ]
-            }
         })
     ],
     devtool: 'source-map'
