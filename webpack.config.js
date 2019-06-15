@@ -10,7 +10,6 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, './dist'),
         filename: 'main.js',
-        publicPath: 'dist/'
     },
     devServer: {
         overlay: true
@@ -25,21 +24,21 @@ module.exports = {
             {
                 test: /\.(sa|sc|c)ss$/,
                 use: [
-                  MiniCssExtractPlugin.loader,
-                  { loader: "css-loader", options: {} },
-                  {
-                    loader: "postcss-loader",
-                    options: {
-                      ident: 'postcss',
-                      plugins: [
-                        require('autoprefixer')({
-                            browsers:['ie >= 8', 'last 4 version']
-                        }),
-                      ]
-                    }
-                  },
+                    MiniCssExtractPlugin.loader,
+                    { loader: "css-loader", options: {} },
+                    {
+                        loader: "postcss-loader",
+                        options: {
+                            ident: 'postcss',
+                            plugins: [
+                                require('autoprefixer')({
+                                    browsers: ['ie >= 8', 'last 4 version']
+                                }),
+                            ]
+                        }
+                    },
                 ]
-              },
+            },
             {
                 test: /\.html$/,
                 use: [
@@ -53,7 +52,7 @@ module.exports = {
                 loader: "url-loader",
                 query: { mimetype: "image/x-icon" }
             },
-            
+
             {
                 test: /\.(jpg|png|gif)$/,
                 use: [{
@@ -92,7 +91,11 @@ module.exports = {
             template: __dirname + "/public/index.html",
             favicon: __dirname + "/public/favicon.ico",
             // minify: { collapseWhitespace: true },
-            inject: 'body'
+            inject: 'body',
+            files: {
+                css: [__dirname + "main.css"],
+                js: [__dirname + "main.js"],
+            }
         })
     ],
     devtool: 'source-map'
