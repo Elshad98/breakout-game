@@ -1,4 +1,6 @@
 body{
     background: #ccc;
     color: #363940;
+    display: flex;
+    transition: all 0.3s;
 }

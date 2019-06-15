@@ -1,8 +1,9 @@
+const webpack = require("webpack");
 const path = require("path");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-
-let isDevMode = 'production' !== process.env.NODE_ENV;
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const autoprefixer = require('autoprefixer');
 
 module.exports = {
     entry: './src/index.js',
@@ -22,17 +23,47 @@ module.exports = {
                 // exclude: '/node_modules/'
             },
             {
-                test: /\.css$/,
+                test: /\.(sa|sc|c)ss$/,
+                use: [
+                  MiniCssExtractPlugin.loader,
+                  { loader: "css-loader", options: {} },
+                  {
+                    loader: "postcss-loader",
+                    options: {
+                      ident: 'postcss',
+                      plugins: [
+                        require('autoprefixer')({
+                            browsers:['ie >= 8', 'last 4 version']
+                        }),
+                      ]
+                    }
+                  },
+                ]
+              },
+            {
+                test: /\.html$/,
                 use: [
                     {
-                        loader: MiniCssExtractPlugin.loader,
-                        options: {
-                            publicPath: '../',
-                            hmr: process.env.NODE_ENV === 'development',
-                        },
-                    },
-                    'css-loader',
-                ],
+                        loader: "html-loader"
+                    }
+                ]
+            },
+            {
+                test: /\.ico$/,
+                loader: "url-loader",
+                query: { mimetype: "image/x-icon" }
+            },
+            
+            {
+                test: /\.(jpg|png|gif)$/,
+                use: [{
+                    loader: 'file-loader',
+                    options: {
+                        name: '[name].[ext]',
+                        outputPath: 'img/',
+                        publicPath: 'img/'
+                    }
+                }]
             },
         ]
     },
@@ -54,6 +85,22 @@ module.exports = {
                     }],
             },
             canPrint: true
+        }),
+        new HtmlWebpackPlugin({
+            title: 'My App',
+            filename: 'index.html',
+            template: __dirname + "/public/index.html",
+            hash: true,
+            // minify: { collapseWhitespace: true },
+            chunks: ['app', 'common'],
+            inject: 'body'
+        }),
+        new webpack.LoaderOptionsPlugin({
+            options: {
+                postcss: [
+                    autoprefixer()
+                ]
+            }
         })
     ],
     devtool: 'source-map'
