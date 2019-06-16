@@ -1,4 +1,4 @@
-import InitialState from './constants';
+import { InitialState, Buttons, Brick } from './constants';
 
 import 'reset-css';
 import './css/index.css';
@@ -13,13 +13,33 @@ let dy = -2;
 let rightPressed = false;
 let leftPressed = false;
 let paddleX = (canvas.width - InitialState.PADDLE_WIDTH) / 2;
+let bricks = [];
+
 
 const keyDownHandler = function (evt) {
-    if (evt.keyCode === 39) {
+    if (evt.keyCode === Buttons.ARROW_RIGHT) {
         rightPressed = true;
     }
-    else if (evt.keyCode === 37) {
+    else if (evt.keyCode === Buttons.ARROW_LEFT) {
         leftPressed = true;
+    }
+};
+
+const drawBricks = () => {
+    for (let i = 0; i < Brick.COLUMN_COUNT; i++) {
+        bricks[i] = [];
+        for (let j = 0; j < Brick.ROW_COUNT; j++) {
+            let brickX = (i * (Brick.WIDTH + Brick.PADDING)) + Brick.OFFSET_LEFT;
+            let brickY = (j * (Brick.HEIGHT + Brick.PADDING)) + Brick.OFFSET_TOP;
+
+            bricks[i][j].x = brickX;
+            bricks[i][j].y = brickY;
+            ctx.beginPath();
+            ctx.rect(brickX, brickY, Brick.WIDTH, Brick.HEIGHT);
+            ctx.fillStyle = InitialState.COLOR;
+            ctx.fill();
+            ctx.closePath();
+        }
     }
 };
 
@@ -35,7 +55,7 @@ const keyUpHandler = function (evt) {
 const drawBall = () => {
     ctx.beginPath();
     ctx.arc(x, y, InitialState.BALL_RADIUS, 0, Math.PI * 2);
-    ctx.fillStyle = '#0095DD';
+    ctx.fillStyle = InitialState.COLOR;
     ctx.fill();
     ctx.closePath();
 };
@@ -43,12 +63,13 @@ const drawBall = () => {
 const drawPaddle = () => {
     ctx.beginPath();
     ctx.rect(paddleX, canvas.height - InitialState.PADDLE_HEIGHT, InitialState.PADDLE_WIDTH, InitialState.PADDLE_HEIGHT);
-    ctx.fillStyle = '#0095DD';
+    ctx.fillStyle = InitialState.COLOR;
     ctx.fill();
     ctx.closePath();
 };
 
 const draw = () => {
+    drawBricks();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBall();
     drawPaddle();
