@@ -14,7 +14,7 @@ let rightPressed = false;
 let leftPressed = false;
 let paddleX = (canvas.width - InitialState.PADDLE_WIDTH) / 2;
 
-const keyDownHandler = function(evt) {
+const keyDownHandler = function (evt) {
     if (evt.keyCode === 39) {
         rightPressed = true;
     }
@@ -23,7 +23,7 @@ const keyDownHandler = function(evt) {
     }
 };
 
-const keyUpHandler = function(evt){
+const keyUpHandler = function (evt) {
     if (evt.keyCode === 39) {
         rightPressed = false;
     }
@@ -53,8 +53,18 @@ const draw = () => {
     drawBall();
     drawPaddle();
 
-    if (y + dy > canvas.height - InitialState.BALL_RADIUS || y + dy < InitialState.BALL_RADIUS) {
+    if (y + dy < InitialState.BALL_RADIUS) {
         dy = -dy;
+    }
+    else if (y + dy > canvas.height - InitialState.BALL_RADIUS) {
+        if (x > paddleX && x < paddleX + InitialState.PADDLE_WIDTH) {
+            dy = -dy;
+        } else {
+            alert("GAME OVER");
+            document.location.reload();
+            clearInterval(interval);
+        }
+
     }
     if (x + dx > canvas.width - InitialState.BALL_RADIUS || x + dx < InitialState.BALL_RADIUS) {
         dx = -dx;
@@ -71,6 +81,6 @@ const draw = () => {
     y += dy;
 };
 
-setInterval(draw, InitialState.FRAME_TIME);
+const interval = setInterval(draw, InitialState.FRAME_TIME);
 document.addEventListener('keydown', keyDownHandler);
 document.addEventListener('keyup', keyUpHandler);
