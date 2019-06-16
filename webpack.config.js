@@ -12,7 +12,9 @@ module.exports = {
         filename: 'main.js',
     },
     devServer: {
-        overlay: true
+        overlay: true,
+        inline: true,
+        hot: true
     },
     module: {
         rules: [

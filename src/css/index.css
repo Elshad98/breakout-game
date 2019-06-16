@@ -1,6 +1,16 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body{
-    background: #ccc;
+    background: #fff;
     color: #363940;
-    display: flex;
-    transition: all 0.3s;
+}
+
+#myCanvas{
+    background: #eee;
+    display: block;
+    margin: 0 auto;
 }
