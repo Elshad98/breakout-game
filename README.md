@@ -1,7 +1,7 @@
 # Breakout
 
 Simple game Breakout written entirely in pure JavaScript and rendered on HTML5 <canvas>.   
-The main purpose of this application is to learn Phaser.js.    
+The main purpose of this application is to learn JavaScript.    
 Check the demo:        
 
 ## Instructions
