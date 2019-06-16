@@ -7,21 +7,16 @@ const autoprefixer = require('autoprefixer');
 
 module.exports = {
     entry: './src/index.js',
-    output: {
-        path: path.resolve(__dirname, './dist'),
-        filename: 'main.js',
-    },
+    devtool: 'source-map',
     devServer: {
-        overlay: true,
-        inline: true,
-        hot: true
+        overlay: true
     },
     module: {
         rules: [
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
-                // exclude: '/node_modules/'
+                exclude: '/node_modules/'
             },
             {
                 test: /\.(sa|sc|c)ss$/,
@@ -100,5 +95,8 @@ module.exports = {
             }
         })
     ],
-    devtool: 'source-map'
+    output: {
+        path: path.resolve(__dirname, './dist'),
+        filename: 'main.js',
+    },
 };
