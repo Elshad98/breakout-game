@@ -5,12 +5,16 @@
 }
 
 body{
-    background: #fff;
+    background: #3E4147;
     color: #363940;
+    position: relative;
 }
 
 #myCanvas{
-    background: #eee;
+    background: #36393F;
     display: block;
-    margin: 0 auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

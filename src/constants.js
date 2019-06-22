@@ -3,7 +3,7 @@ const InitialState = Object.freeze({
     FRAME_TIME: 10,
     PADDLE_HEIGHT: 10,
     PADDLE_WIDTH: 75,
-    COLOR: '#0095DD'
+    COLOR: '#7289da'
 });
 
 const Buttons = Object.freeze({
