@@ -15,6 +15,12 @@ let leftPressed = false;
 let paddleX = (canvas.width - InitialState.PADDLE_WIDTH) / 2;
 let bricks = [];
 
+for (let i = 0; i < Brick.COLUMN_COUNT; i++) {
+    bricks[i] = [];
+    for (let j = 0; j < Brick.ROW_COUNT; j++) {
+        bricks[i][j] = { x: 0, y: 0, status: 1 };
+    }
+}
 
 const keyDownHandler = function (evt) {
     if (evt.keyCode === Buttons.ARROW_RIGHT) {
@@ -27,29 +33,18 @@ const keyDownHandler = function (evt) {
 
 const drawBricks = () => {
     for (let i = 0; i < Brick.COLUMN_COUNT; i++) {
-        bricks[i] = [];
         for (let j = 0; j < Brick.ROW_COUNT; j++) {
-            let brickX = (i * (Brick.WIDTH + Brick.PADDING)) + Brick.OFFSET_LEFT;
-            let brickY = (j * (Brick.HEIGHT + Brick.PADDING)) + Brick.OFFSET_TOP;
-
-            bricks[i][j] = { x: 0, y: 0 };
-            bricks[i][j].x = brickX;
-            bricks[i][j].y = brickY;
-
-            ctx.beginPath();
-            ctx.rect(brickX, brickY, Brick.WIDTH, Brick.HEIGHT);
-            ctx.fillStyle = InitialState.COLOR;
-            ctx.fill();
-            ctx.closePath();
-        }
-    }
-};
-
-const collisionDetection = () => {
-    for (let i = 0; i < Brick.COLUMN_COUNT; i++) {
-        for (let j = 0; j < Brick.ROW_COUNT; j++) {
-            let b = bricks[i][j];
-            // calculations
+            if (bricks[i][j].status == 1) {
+                let brickX = (i * (Brick.WIDTH + Brick.PADDING)) + Brick.OFFSET_LEFT;
+                let brickY = (j * (Brick.HEIGHT + Brick.PADDING)) + Brick.OFFSET_TOP;
+                bricks[i][j].x = brickX;
+                bricks[i][j].y = brickY;
+                ctx.beginPath();
+                ctx.rect(brickX, brickY, Brick.WIDTH, Brick.HEIGHT);
+                ctx.fillStyle = InitialState.COLOR;
+                ctx.fill();
+                ctx.closePath();
+            }
         }
     }
 };
@@ -60,6 +55,18 @@ const keyUpHandler = function (evt) {
     }
     else if (evt.keyCode === 37) {
         leftPressed = false;
+    }
+};
+
+const collisionDetection = () => {
+    for (let i = 0; i < Brick.COLUMN_COUNT; i++) {
+        for (let j = 0; j < Brick.ROW_COUNT; j++) {
+            let b = bricks[i][j];
+            if (x > b.x && x < b.x + Brick.WIDTH && y > b.y && y < b.y + Brick.HEIGHT) {
+                dy = -dy;
+                b.status = 0;
+            }
+        }
     }
 };
 
@@ -84,6 +91,7 @@ const draw = () => {
     drawBricks();
     drawBall();
     drawPaddle();
+    collisionDetection();
 
     if (y + dy < InitialState.BALL_RADIUS) {
         dy = -dy;
