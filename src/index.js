@@ -32,8 +32,10 @@ const drawBricks = () => {
             let brickX = (i * (Brick.WIDTH + Brick.PADDING)) + Brick.OFFSET_LEFT;
             let brickY = (j * (Brick.HEIGHT + Brick.PADDING)) + Brick.OFFSET_TOP;
 
+            bricks[i][j] = { x: 0, y: 0 };
             bricks[i][j].x = brickX;
             bricks[i][j].y = brickY;
+
             ctx.beginPath();
             ctx.rect(brickX, brickY, Brick.WIDTH, Brick.HEIGHT);
             ctx.fillStyle = InitialState.COLOR;
@@ -69,8 +71,8 @@ const drawPaddle = () => {
 };
 
 const draw = () => {
-    drawBricks();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drawBricks();    
     drawBall();
     drawPaddle();
 
