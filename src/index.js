@@ -45,6 +45,15 @@ const drawBricks = () => {
     }
 };
 
+const collisionDetection = () => {
+    for (let i = 0; i < Brick.COLUMN_COUNT; i++) {
+        for (let j = 0; j < Brick.ROW_COUNT; j++) {
+            let b = bricks[i][j];
+            // calculations
+        }
+    }
+};
+
 const keyUpHandler = function (evt) {
     if (evt.keyCode === 39) {
         rightPressed = false;
@@ -72,7 +81,7 @@ const drawPaddle = () => {
 
 const draw = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawBricks();    
+    drawBricks();
     drawBall();
     drawPaddle();
 
