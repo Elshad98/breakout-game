@@ -4,6 +4,7 @@ import { getRandom, drawRectangle, showMessage, drawCircle } from './lib';
 
 import 'reset-css';
 import './css/index.css';
+import { isRegExp } from 'util';
 
 const canvas = document.querySelector('#myCanvas');
 const ctx = canvas.getContext('2d');
@@ -70,6 +71,11 @@ const collisionDetection = () => {
                     dy = -dy;
                     b.status = 0;
                     score++;
+                    if(score === Brick.COLUMN_COUNT * Brick.ROW_COUNT){
+                        alert('YOU WIN, CONGRATULATIONS!!!');
+                        document.location.reload();
+                        clearInterval(interval);
+                    }
                 }
             }
         }
