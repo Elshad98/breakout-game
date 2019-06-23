@@ -1,6 +1,6 @@
 import { InitialState, Buttons, Brick } from './constants';
 import colors from './dummy-data';
-import { getRandom, drawRectangle, showMessage } from './lib';
+import { getRandom, drawRectangle, showMessage, drawCircle } from './lib';
 
 import 'reset-css';
 import './css/index.css';
@@ -46,11 +46,7 @@ const drawBricks = () => {
                 let brickY = (j * (Brick.HEIGHT + Brick.PADDING)) + Brick.OFFSET_TOP;
                 bricks[i][j].x = brickX;
                 bricks[i][j].y = brickY;
-                ctx.beginPath();
-                ctx.rect(brickX, brickY, Brick.WIDTH, Brick.HEIGHT);
-                ctx.fillStyle = bricks[i][j].color;
-                ctx.fill();
-                ctx.closePath();
+                drawRectangle(ctx, brickX, brickY, Brick.WIDTH, Brick.HEIGHT, bricks[i][j].color); // drawing bricks
             }
         }
     }
@@ -80,18 +76,10 @@ const collisionDetection = () => {
     }
 };
 
-const drawBall = () => {
-    ctx.beginPath();
-    ctx.arc(x, y, InitialState.BALL_RADIUS, 0, Math.PI * 2);
-    ctx.fillStyle = InitialState.COLOR;
-    ctx.fill();
-    ctx.closePath();
-};
-
 const draw = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBricks();
-    drawBall();
+    drawCircle(ctx, x, y, InitialState.BALL_RADIUS, 0, Math.PI * 2, InitialState.COLOR); // draw ball
     drawRectangle(ctx, paddleX, canvas.height - InitialState.PADDLE_HEIGHT, InitialState.PADDLE_WIDTH, InitialState.PADDLE_HEIGHT, InitialState.COLOR); // draw paddle
     showMessage(ctx, '16px Arial', InitialState.COLOR, `Score: ${score}`, 8, 20);
     collisionDetection();
@@ -117,11 +105,9 @@ const draw = () => {
     else if (leftPressed && paddleX > 0) {
         paddleX -= 7;
     }
-
     x += dx;
     y += dy;
 };
-
 const interval = setInterval(draw, InitialState.FRAME_TIME);
 document.addEventListener('keydown', keyDownHandler);
 document.addEventListener('keyup', keyUpHandler);

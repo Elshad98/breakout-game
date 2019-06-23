@@ -16,4 +16,12 @@ const showMessage = (ctx, font, color, text, x, y) => {
     ctx.fillText(text, x, y);
 };
 
-export { getRandom, drawRectangle, showMessage };
+const drawCircle = (ctx, x, y, radius, startAngle, endAngle, color) => {
+    ctx.beginPath();
+    ctx.arc(x, y, radius, startAngle, endAngle);
+    ctx.fillStyle = color;
+    ctx.fill();
+    ctx.closePath();
+};
+
+export { getRandom, drawRectangle, showMessage, drawCircle };
