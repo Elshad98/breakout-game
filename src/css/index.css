@@ -13,8 +13,7 @@ body{
 #myCanvas{
     background: #36393F;
     display: block;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    margin: 50px auto 0 auto;
+    box-shadow: 0 2px 10px 0 rgba(0,0,0,.2);
+    border-radius: 5px;
 }

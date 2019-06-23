@@ -41,7 +41,7 @@ const keyDownHandler = function (evt) {
 };
 
 const mouseMoveHandler = (evt) => {
-    const relativeX = evt.clientX - canvas.offsetLeft + canvas.width / 2;
+    const relativeX = evt.clientX - canvas.offsetLeft;
     if (relativeX > 0 && relativeX < canvas.width) {
         paddleX = relativeX - InitialState.PADDLE_WIDTH / 2;
     }
@@ -110,8 +110,8 @@ const draw = () => {
         } else {
             lives--;
             if (lives === 0) {
-                alert("GAME OVER");
-                document.location.reload();
+                // alert("GAME OVER");
+                // document.location.reload();
             } else {
                 x = canvas.width / 2;
                 y = canvas.height - 30;

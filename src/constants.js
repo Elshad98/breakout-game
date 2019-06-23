@@ -15,12 +15,12 @@ const Buttons = Object.freeze({
 
 const Brick = Object.freeze({
     ROW_COUNT: 3,
-    COLUMN_COUNT: 5,
-    WIDTH: 75,
-    HEIGHT: 20,
-    PADDING: 10,
+    COLUMN_COUNT: 10,
+    WIDTH: 80,
+    HEIGHT: 30,
+    PADDING: 0,
     OFFSET_TOP: 30,
-    OFFSET_LEFT: 30
+    OFFSET_LEFT: 0
 });
 
 export { InitialState, Buttons, Brick };

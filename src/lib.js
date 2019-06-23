@@ -4,9 +4,12 @@ const getRandom = (array) => {
 
 const drawRectangle = (ctx, x, y, width, height, color) => {
     ctx.beginPath();
+    ctx.lineWidth = "1";
+    ctx.strokeStyle = "#7289da";
+
     ctx.rect(x, y, width, height);
     ctx.fillStyle = color;
-    ctx.fill();
+    ctx.fill();ctx.stroke();
     ctx.closePath();
 };
 
