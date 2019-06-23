@@ -1,6 +1,6 @@
 import { InitialState, Buttons, Brick } from './constants';
 import colors from './dummy-data';
-import { getRandom } from './lib';
+import { getRandom, drawRectangle, showMessage } from './lib';
 
 import 'reset-css';
 import './css/index.css';
@@ -19,12 +19,12 @@ let score = 0;
 let bricks = [];
 let arrColors = [];
 
-for(let i = 0; i < Brick.COLUMN_COUNT; i++)
+for (let i = 0; i < Brick.COLUMN_COUNT; i++)
     arrColors[i] = colors[getRandom(colors)];
 
 for (let i = 0; i < Brick.COLUMN_COUNT; i++) {
     bricks[i] = [];
-    for (let j = 0; j < Brick.ROW_COUNT; j++) 
+    for (let j = 0; j < Brick.ROW_COUNT; j++)
         bricks[i][j] = { x: 0, y: 0, status: 1, color: arrColors[j] };
 }
 
@@ -80,23 +80,9 @@ const collisionDetection = () => {
     }
 };
 
-const drawScore = () => {
-    ctx.font = '16px Arial';
-    ctx.fillStyle = InitialState.COLOR;
-    ctx.fillText(`Score: ${score}`, 8, 20);
-};
-
 const drawBall = () => {
     ctx.beginPath();
     ctx.arc(x, y, InitialState.BALL_RADIUS, 0, Math.PI * 2);
-    ctx.fillStyle = InitialState.COLOR;
-    ctx.fill();
-    ctx.closePath();
-};
-
-const drawPaddle = () => {
-    ctx.beginPath();
-    ctx.rect(paddleX, canvas.height - InitialState.PADDLE_HEIGHT, InitialState.PADDLE_WIDTH, InitialState.PADDLE_HEIGHT);
     ctx.fillStyle = InitialState.COLOR;
     ctx.fill();
     ctx.closePath();
@@ -106,8 +92,8 @@ const draw = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     drawBricks();
     drawBall();
-    drawPaddle();
-    drawScore();
+    drawRectangle(ctx, paddleX, canvas.height - InitialState.PADDLE_HEIGHT, InitialState.PADDLE_WIDTH, InitialState.PADDLE_HEIGHT, InitialState.COLOR); // draw paddle
+    showMessage(ctx, '16px Arial', InitialState.COLOR, `Score: ${score}`, 8, 20);
     collisionDetection();
 
     if (x + dx > canvas.width - InitialState.BALL_RADIUS || x + dx < InitialState.BALL_RADIUS) {
