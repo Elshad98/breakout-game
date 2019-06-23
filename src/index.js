@@ -15,17 +15,18 @@ let dy = -2;
 let rightPressed = false;
 let leftPressed = false;
 let paddleX = (canvas.width - InitialState.PADDLE_WIDTH) / 2;
-let score = 0;
+let score = InitialState.SCORE;
 let bricks = [];
 let arrColors = [];
+let lives = InitialState.LIVES;
 
-for (let i = 0; i < Brick.COLUMN_COUNT; i++){
+for (let i = 0; i < Brick.COLUMN_COUNT; i++) {
     arrColors[i] = colors[getRandom(colors)];
 }
 
 for (let i = 0; i < Brick.COLUMN_COUNT; i++) {
     bricks[i] = [];
-    for (let j = 0; j < Brick.ROW_COUNT; j++){
+    for (let j = 0; j < Brick.ROW_COUNT; j++) {
         bricks[i][j] = { x: 0, y: 0, status: 1, color: arrColors[j] };
     }
 }
@@ -41,7 +42,7 @@ const keyDownHandler = function (evt) {
 
 const mouseMoveHandler = (evt) => {
     const relativeX = evt.clientX - canvas.offsetLeft + canvas.width / 2;
-    if (relativeX > 0 && relativeX < canvas.width){
+    if (relativeX > 0 && relativeX < canvas.width) {
         paddleX = relativeX - InitialState.PADDLE_WIDTH / 2;
     }
 };
@@ -81,7 +82,6 @@ const collisionDetection = () => {
                     if (score === Brick.COLUMN_COUNT * Brick.ROW_COUNT) {
                         alert('YOU WIN, CONGRATULATIONS!!!');
                         document.location.reload();
-                        clearInterval(interval);
                     }
                 }
             }
@@ -94,7 +94,8 @@ const draw = () => {
     drawBricks();
     drawCircle(ctx, x, y, InitialState.BALL_RADIUS, 0, Math.PI * 2, InitialState.COLOR); // draw ball
     drawRectangle(ctx, paddleX, canvas.height - InitialState.PADDLE_HEIGHT, InitialState.PADDLE_WIDTH, InitialState.PADDLE_HEIGHT, InitialState.COLOR); // draw paddle
-    showMessage(ctx, '16px Arial', InitialState.COLOR, `Score: ${score}`, 8, 20);
+    showMessage(ctx, '16px Arial', InitialState.COLOR, `Score: ${score}`, 8, 20); // draw score
+    showMessage(ctx, '16px Arial', InitialState.COLOR, `Lives ${lives}`, canvas.width - 65, 20);
     collisionDetection();
 
     if (x + dx > canvas.width - InitialState.BALL_RADIUS || x + dx < InitialState.BALL_RADIUS) {
@@ -107,9 +108,17 @@ const draw = () => {
         if (x > paddleX && x < paddleX + InitialState.PADDLE_WIDTH) {
             dy = -dy;
         } else {
-            alert("GAME OVER");
-            document.location.reload();
-            clearInterval(interval);
+            lives--;
+            if (lives === 0) {
+                alert("GAME OVER");
+                document.location.reload();
+            } else {
+                x = canvas.width / 2;
+                y = canvas.height - 30;
+                dx = 2;
+                dy = -2;
+                paddleX = (canvas.width - InitialState.PADDLE_WIDTH) / 2;
+            }
         }
     }
     if (rightPressed && paddleX < canvas.width - InitialState.PADDLE_WIDTH) {
@@ -120,8 +129,10 @@ const draw = () => {
     }
     x += dx;
     y += dy;
+    requestAnimationFrame(draw);
 };
-const interval = setInterval(draw, InitialState.FRAME_TIME);
+draw();
+requestAnimationFrame(draw);
 document.addEventListener('keydown', keyDownHandler);
 document.addEventListener('keyup', keyUpHandler);
 document.addEventListener('mousemove', mouseMoveHandler);

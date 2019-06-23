@@ -3,6 +3,8 @@ const InitialState = Object.freeze({
     FRAME_TIME: 10,
     PADDLE_HEIGHT: 10,
     PADDLE_WIDTH: 75,
+    SCORE: 0,
+    LIVES: 3,
     COLOR: '#7289da'
 });
 
