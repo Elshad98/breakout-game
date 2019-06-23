@@ -4,7 +4,6 @@ import { getRandom, drawRectangle, showMessage, drawCircle } from './lib';
 
 import 'reset-css';
 import './css/index.css';
-import { isRegExp } from 'util';
 
 const canvas = document.querySelector('#myCanvas');
 const ctx = canvas.getContext('2d');
@@ -20,13 +19,15 @@ let score = 0;
 let bricks = [];
 let arrColors = [];
 
-for (let i = 0; i < Brick.COLUMN_COUNT; i++)
+for (let i = 0; i < Brick.COLUMN_COUNT; i++){
     arrColors[i] = colors[getRandom(colors)];
+}
 
 for (let i = 0; i < Brick.COLUMN_COUNT; i++) {
     bricks[i] = [];
-    for (let j = 0; j < Brick.ROW_COUNT; j++)
+    for (let j = 0; j < Brick.ROW_COUNT; j++){
         bricks[i][j] = { x: 0, y: 0, status: 1, color: arrColors[j] };
+    }
 }
 
 const keyDownHandler = function (evt) {
@@ -38,6 +39,12 @@ const keyDownHandler = function (evt) {
     }
 };
 
+const mouseMoveHandler = (evt) => {
+    const relativeX = evt.clientX - canvas.offsetLeft + canvas.width / 2;
+    if (relativeX > 0 && relativeX < canvas.width){
+        paddleX = relativeX - InitialState.PADDLE_WIDTH / 2;
+    }
+};
 
 const drawBricks = () => {
     for (let i = 0; i < Brick.COLUMN_COUNT; i++) {
@@ -71,7 +78,7 @@ const collisionDetection = () => {
                     dy = -dy;
                     b.status = 0;
                     score++;
-                    if(score === Brick.COLUMN_COUNT * Brick.ROW_COUNT){
+                    if (score === Brick.COLUMN_COUNT * Brick.ROW_COUNT) {
                         alert('YOU WIN, CONGRATULATIONS!!!');
                         document.location.reload();
                         clearInterval(interval);
@@ -117,3 +124,4 @@ const draw = () => {
 const interval = setInterval(draw, InitialState.FRAME_TIME);
 document.addEventListener('keydown', keyDownHandler);
 document.addEventListener('keyup', keyUpHandler);
+document.addEventListener('mousemove', mouseMoveHandler);
