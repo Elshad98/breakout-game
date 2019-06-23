@@ -14,7 +14,7 @@ const Buttons = Object.freeze({
 });
 
 const Brick = Object.freeze({
-    ROW_COUNT: 3,
+    ROW_COUNT: 4,
     COLUMN_COUNT: 10,
     WIDTH: 80,
     HEIGHT: 30,

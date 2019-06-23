@@ -1,6 +1,6 @@
 import { InitialState, Buttons, Brick } from './constants';
 import colors from './dummy-data';
-import { getRandom, drawRectangle, showMessage, drawCircle } from './lib';
+import { getRandom, drawRectangle, showMessage, drawStrokeRectangle, drawCircle } from './lib';
 
 import 'reset-css';
 import './css/index.css';
@@ -55,7 +55,7 @@ const drawBricks = () => {
                 let brickY = (j * (Brick.HEIGHT + Brick.PADDING)) + Brick.OFFSET_TOP;
                 bricks[i][j].x = brickX;
                 bricks[i][j].y = brickY;
-                drawRectangle(ctx, brickX, brickY, Brick.WIDTH, Brick.HEIGHT, bricks[i][j].color); // drawing bricks
+                drawStrokeRectangle(ctx, brickX, brickY, Brick.WIDTH, Brick.HEIGHT, bricks[i][j].color, InitialState.COLOR); // drawing bricks
             }
         }
     }
@@ -110,8 +110,8 @@ const draw = () => {
         } else {
             lives--;
             if (lives === 0) {
-                // alert("GAME OVER");
-                // document.location.reload();
+                alert("GAME OVER");
+                document.location.reload();
             } else {
                 x = canvas.width / 2;
                 y = canvas.height - 30;
