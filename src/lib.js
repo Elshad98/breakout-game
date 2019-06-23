@@ -16,7 +16,7 @@ const showMessage = (ctx, font, color, text, x, y) => {
     ctx.fillText(text, x, y);
 };
 
-const drawStrokeRectangle = (ctx, x, y, width, height, color, strokeStyle) => {
+const drawStrokeRectangle = (ctx, x, y, width, height, color, strokeStyle = '#36393F') => {
     ctx.beginPath();
     ctx.lineWidth = "5";
     ctx.strokeStyle = strokeStyle;

@@ -59,7 +59,7 @@ const drawBricks = () => {
                 let brickY = (j * (Brick.HEIGHT + Brick.PADDING)) + Brick.OFFSET_TOP;
                 bricks[i][j].x = brickX;
                 bricks[i][j].y = brickY;
-                drawStrokeRectangle(ctx, brickX, brickY, Brick.WIDTH, Brick.HEIGHT, bricks[i][j].color, '#36393F'); // drawing bricks
+                drawStrokeRectangle(ctx, brickX, brickY, Brick.WIDTH, Brick.HEIGHT, bricks[i][j].color); // drawing bricks
             }
         }
     }
