@@ -2,7 +2,7 @@
 
 Simple game Breakout written entirely in pure JavaScript and rendered on HTML5 <canvas>.   
 The main purpose of this application is to learn JavaScript.    
-Check the demo:        
+Check the demo: [https://elshad98.github.io/javascript-breakout](https://elshad98.github.io/javascript-breakout)    
 
 ## Instructions
 
