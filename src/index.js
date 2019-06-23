@@ -1,6 +1,6 @@
 import { InitialState, Buttons, Brick } from './constants';
 import colors from './dummy-data';
-import { getRandom, drawRectangle, showMessage, drawStrokeRectangle, drawCircle } from './lib';
+import { getRandom, drawRectangle, showMessage, drawStrokeRectangle, drawCircle, checkArray } from './lib';
 
 import 'reset-css';
 import './css/index.css';
@@ -20,8 +20,12 @@ let bricks = [];
 let arrColors = [];
 let lives = InitialState.LIVES;
 
-for (let i = 0; i < Brick.COLUMN_COUNT; i++) {
-    arrColors[i] = colors[getRandom(colors)];
+for (let i = 0; i < Brick.ROW_COUNT; i++) {
+    let bg; 
+    do{
+        bg = colors[getRandom(colors)];
+    }while(checkArray(arrColors, bg));
+    arrColors[i] = bg;
 }
 
 for (let i = 0; i < Brick.COLUMN_COUNT; i++) {
@@ -55,7 +59,7 @@ const drawBricks = () => {
                 let brickY = (j * (Brick.HEIGHT + Brick.PADDING)) + Brick.OFFSET_TOP;
                 bricks[i][j].x = brickX;
                 bricks[i][j].y = brickY;
-                drawStrokeRectangle(ctx, brickX, brickY, Brick.WIDTH, Brick.HEIGHT, bricks[i][j].color, InitialState.COLOR); // drawing bricks
+                drawStrokeRectangle(ctx, brickX, brickY, Brick.WIDTH, Brick.HEIGHT, bricks[i][j].color, '#36393F'); // drawing bricks
             }
         }
     }

@@ -18,7 +18,7 @@ const showMessage = (ctx, font, color, text, x, y) => {
 
 const drawStrokeRectangle = (ctx, x, y, width, height, color, strokeStyle) => {
     ctx.beginPath();
-    ctx.lineWidth = "1";
+    ctx.lineWidth = "5";
     ctx.strokeStyle = strokeStyle;
     ctx.rect(x, y, width, height);
     ctx.fillStyle = color;
@@ -35,4 +35,14 @@ const drawCircle = (ctx, x, y, radius, startAngle, endAngle, color) => {
     ctx.closePath();
 };
 
-export { getRandom, drawRectangle, showMessage, drawCircle, drawStrokeRectangle };
+const checkArray = (array, item) => {
+    let flag = false;
+    for (let i = 0; i < array.length; i++) {
+        if(array[i] === item){
+            flag = true;
+        }
+    }
+    return flag;
+};
+
+export { getRandom, drawRectangle, showMessage, drawCircle, drawStrokeRectangle, checkArray };
